@@ -42,6 +42,10 @@ pip install pyserial
 
 Run the provided `mppt_poll.py` script to see live data.
 
+## Home Assistant Integration
+
+For details on integrating this data into Home Assistant, see [docs/HA_INTEGRATION.md](docs/HA_INTEGRATION.md).
+
 ---
 
 ## Disclaimer
