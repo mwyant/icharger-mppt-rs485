@@ -34,14 +34,14 @@
         - conditions:
             - condition: trigger
               id: "turn_on"
-          action:
+          sequence:
             - service: switch.turn_on
               target:
                 entity_id: switch.living_room_smart_plug
         - conditions:
             - condition: trigger
               id: "turn_off"
-          action:
+          sequence:
             - service: switch.turn_off
               target:
                 entity_id: switch.living_room_smart_plug

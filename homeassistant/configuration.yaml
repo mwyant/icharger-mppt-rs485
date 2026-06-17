@@ -53,10 +53,14 @@ template:
       - name: "Grid Cost Today"
         unique_id: grid_cost_today
         unit_of_measurement: "$"
+        device_class: monetary
+        state_class: total_increasing
         state: "{{ (states('sensor.wyants_walk_monitor_energy_today') | float(0) * 0.25) | round(2) }}"
       - name: "Green Savings Today"
         unique_id: green_savings_today
         unit_of_measurement: "$"
+        device_class: monetary
+        state_class: total_increasing
         state: "{{ (states('sensor.green_energy_today') | float(0) * 0.25) | round(2) }}"
 
       # iCharger MPPT 48100 Sensors

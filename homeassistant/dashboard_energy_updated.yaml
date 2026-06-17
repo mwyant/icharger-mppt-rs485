@@ -1,0 +1,255 @@
+title: Energy Analytics
+path: dashboard-energy
+icon: mdi:chart-timeline-variant
+views:
+  - title: Energy Analytics
+    path: analytics
+    icon: mdi:chart-timeline-variant
+    type: masonry
+    cards:
+      - type: custom:plotly-graph
+        hours_to_show: 24
+        refresh_interval: 10
+        title: LIVE POWER COMPARISON (24H)
+        entities:
+          - entity: sensor.wyants_walk_monitor_power_minute_average
+            name: GRID LOAD (W)
+            line:
+              color: "#FF9900"
+              width: 2
+          - entity: sensor.green_power_live
+            name: GREEN POWER (W)
+            line:
+              color: "#00FF33"
+              width: 2
+          - entity: sensor.offgrid_solar_power_minute_average
+            name: OFFGRID SOLAR (W)
+            line:
+              color: "#99FF33"
+              width: 1
+              dash: dash
+          - entity: sensor.living_room_smart_plug_current_consumption
+            name: LIVING ROOM PLUG (W)
+            line:
+              color: "#33FF99"
+              width: 1
+              dash: dot
+        layout:
+          paper_bgcolor: rgba(0,0,0,0)
+          plot_bgcolor: rgba(0,0,0,0)
+          xaxis:
+            gridcolor: rgba(255,255,255,0.05)
+            zerolinecolor: rgba(255,255,255,0.1)
+          yaxis:
+            gridcolor: rgba(255,255,255,0.05)
+            zerolinecolor: rgba(255,255,255,0.1)
+        card_mod:
+          style: |
+            ha-card {
+              border-top: 15px solid #00FF33;
+              border-left: 15px solid #00FF33;
+              border-radius: 20px 0 0 0;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(25px);
+              -webkit-backdrop-filter: blur(25px);
+              border-right: 1px solid rgba(0, 255, 51, 0.2);
+              border-bottom: 1px solid rgba(0, 255, 51, 0.2);
+              box-shadow: 0 0 15px rgba(0, 255, 51, 0.15);
+            }
+      - type: custom:apexcharts-card
+        graph_span: 14d
+        header:
+          show: true
+          title: DAILY ENERGY ACCUMULATION (14D)
+          show_states: true
+          colorize_states: true
+        span:
+          end: day
+        series:
+          - entity: sensor.wyants_walk_monitor_energy_today
+            name: GRID TODAY
+            type: column
+            color: "#FF9900"
+            group_by:
+              func: max
+              duration: 1d
+          - entity: sensor.green_energy_today
+            name: GREEN TODAY
+            type: column
+            color: "#00FF33"
+            group_by:
+              func: max
+              duration: 1d
+        card_mod:
+          style: |
+            ha-card {
+              border-left: 10px solid #FF9900;
+              border-radius: 0;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(25px);
+              -webkit-backdrop-filter: blur(25px);
+              border-top: 1px solid rgba(255, 153, 0, 0.2);
+              border-right: 1px solid rgba(255, 153, 0, 0.2);
+              border-bottom: 1px solid rgba(255, 153, 0, 0.2);
+              box-shadow: 0 0 15px rgba(255, 153, 0, 0.15);
+            }
+      - type: custom:apexcharts-card
+        graph_span: 14d
+        header:
+          show: true
+          title: GREEN POWER BREAKDOWN (14D)
+          show_states: true
+          colorize_states: true
+        span:
+          end: day
+        stacked: true
+        series:
+          - entity: sensor.offgrid_solar_energy_today
+            name: OFFGRID SOLAR
+            type: area
+            color: "#99FF33"
+            group_by:
+              func: max
+              duration: 1d
+          - entity: sensor.living_room_smart_plug_today_s_consumption
+            name: LIVING ROOM PLUG
+            type: area
+            color: "#33FF99"
+            group_by:
+              func: max
+              duration: 1d
+        card_mod:
+          style: |
+            ha-card {
+              border-bottom: 15px solid #99CCFF;
+              border-right: 15px solid #99CCFF;
+              border-radius: 0 0 20px 0;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(25px);
+              -webkit-backdrop-filter: blur(25px);
+              border-top: 1px solid rgba(153, 204, 255, 0.2);
+              border-left: 1px solid rgba(153, 204, 255, 0.2);
+              box-shadow: 0 0 15px rgba(153, 204, 255, 0.15);
+            }
+      - type: entities
+        title: iCharger MPPT 48100
+        show_header_toggle: false
+        entities:
+          - entity: sensor.icharger_charge_power
+            name: Charging Power
+          - entity: sensor.icharger_battery_voltage
+            name: Battery Voltage
+          - entity: sensor.icharger_charge_current
+            name: Charge Current
+          - entity: sensor.icharger_pv_voltage
+            name: PV Voltage
+          - entity: sensor.icharger_total_energy
+            name: Total Energy
+          - entity: sensor.icharger_controller_temperature
+            name: Controller Temp
+          - entity: sensor.icharger_status
+            name: Controller Status
+      - type: custom:apexcharts-card
+        graph_span: 24h
+        header:
+          show: true
+          title: ICHARGER POWER & VOLTAGE (24H)
+          show_states: true
+          colorize_states: true
+        yaxis:
+          - id: left
+            apex_config:
+              title:
+                text: Power (W)
+            decimals: 0
+            min: 0
+          - id: right
+            apex_config:
+              title:
+                text: Voltage (V)
+            opposite: true
+            decimals: 1
+            min: 0
+        series:
+          - entity: sensor.icharger_charge_power
+            name: Charging Power
+            yaxis_id: left
+            type: area
+            color: "#00FF33"
+            stroke_width: 2
+            fill_raw: zero
+          - entity: sensor.icharger_battery_voltage
+            name: Battery Voltage
+            yaxis_id: right
+            type: line
+            color: "#FF3366"
+            stroke_width: 2
+          - entity: sensor.icharger_pv_voltage
+            name: PV Voltage
+            yaxis_id: right
+            type: line
+            color: "#3399FF"
+            stroke_width: 1.5
+        card_mod:
+          style: |
+            ha-card {
+              border-left: 10px solid #00FF33;
+              border-radius: 12px;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(25px);
+              -webkit-backdrop-filter: blur(25px);
+              border-top: 1px solid rgba(0, 255, 51, 0.2);
+              border-right: 1px solid rgba(0, 255, 51, 0.2);
+              border-bottom: 1px solid rgba(0, 255, 51, 0.2);
+              box-shadow: 0 0 15px rgba(0, 255, 51, 0.15);
+            }
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: gauge
+            entity: sensor.icharger_controller_temperature
+            name: Controller Temp
+            unit: °F
+            min: 60
+            max: 150
+            severity:
+              green: 60
+              yellow: 110
+              red: 130
+            card_mod:
+              style: |
+                ha-card {
+                  border-left: 5px solid #FF9900;
+                  border-radius: 12px;
+                  background: rgba(0, 0, 0, 0.85);
+                  backdrop-filter: blur(25px);
+                  -webkit-backdrop-filter: blur(25px);
+                  border-top: 1px solid rgba(255, 153, 0, 0.2);
+                  border-right: 1px solid rgba(255, 153, 0, 0.2);
+                  border-bottom: 1px solid rgba(255, 153, 0, 0.2);
+                  box-shadow: 0 0 15px rgba(255, 153, 0, 0.15);
+                }
+          - type: gauge
+            entity: sensor.icharger_charge_current
+            name: Charge Current
+            unit: A
+            min: 0
+            max: 100
+            severity:
+              green: 0
+              yellow: 60
+              red: 85
+            card_mod:
+              style: |
+                ha-card {
+                  border-left: 5px solid #00FF33;
+                  border-radius: 12px;
+                  background: rgba(0, 0, 0, 0.85);
+                  backdrop-filter: blur(25px);
+                  -webkit-backdrop-filter: blur(25px);
+                  border-top: 1px solid rgba(0, 255, 51, 0.2);
+                  border-right: 1px solid rgba(0, 255, 51, 0.2);
+                  border-bottom: 1px solid rgba(0, 255, 51, 0.2);
+                  box-shadow: 0 0 15px rgba(0, 255, 51, 0.15);
+                }

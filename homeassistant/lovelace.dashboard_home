@@ -172,7 +172,7 @@
                       "type": "template",
                       "icon": "mdi:solar-power-variant",
                       "icon_color": "green",
-                      "content": "PV: {{ states('sensor.icharger_pv_voltage') }} V"
+                      "content": "Power: {{ states('sensor.icharger_charge_power') }} W"
                     },
                     {
                       "type": "template",

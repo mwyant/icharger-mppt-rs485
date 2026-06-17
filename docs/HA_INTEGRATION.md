@@ -72,7 +72,21 @@ The dashboard utilizes `card_mod` for glassmorphism styling across all custom ca
   * `border-left: 10px solid [Color]`
   * `box-shadow: 0 0 15px rgba([Color], 0.15)`
 
-## 7. Data Retention
+## 7. Data Retention & Long-Term Statistics (LTS)
 Home Assistant stores state data in `/homeassistant/home-assistant_v2.db` (SQLite). 
 * **Detailed History:** 10 days (configurable in `recorder`).
-* **Long-Term Statistics:** Infinite retention for sensors with `state_class` (measurement or total_increasing).
+* **Long-Term Statistics (LTS):** Infinite retention for sensors with `state_class` (measurement, total, or total_increasing).
+
+### 7.1. LTS Compliance Audit
+All critical energy and power sensors have been configured with the necessary metadata to ensure they are captured by the LTS engine:
+
+| Sensor | Device Class | State Class | LTS Type |
+| :--- | :--- | :--- | :--- |
+| `Green Power Live` | `power` | `measurement` | Hourly Min/Max/Avg |
+| `Green Energy Today` | `energy` | `total_increasing` | Hourly Total |
+| `iCharger Total Energy` | `energy` | `total_increasing` | Hourly Total |
+| `Grid Cost Today` | `monetary` | `total_increasing` | Hourly Total |
+| `Green Savings Today` | `monetary` | `total_increasing` | Hourly Total |
+| `iCharger Battery SoC` | `battery` | `measurement` | Hourly Min/Max/Avg |
+
+This ensures that even after the 10-day detailed history is purged, you can still view hourly energy usage and savings data for years.
