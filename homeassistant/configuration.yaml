@@ -1,0 +1,199 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Govee Edits
+logger:
+  default: warning
+  logs:
+    custom_components.govee: debug
+    govee_api_laggat: debug
+
+utility_meter: !include utility_meter.yaml
+
+# http security hardening
+http:
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+
+# Template Sensors for Green Power Tracking
+template:
+  - sensor:
+      - name: "Green Power Live"
+        unique_id: green_power_live
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+        state: >
+          {{ (states('sensor.living_room_smart_plug_current_consumption') | float(0)) +
+             (states('sensor.icharger_charge_power') | float(0)) }}
+      - name: "Green Energy Today"
+        unique_id: green_energy_today
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: >
+          {{ (states('sensor.living_room_smart_plug_today_s_consumption') | float(0)) +
+             (states('sensor.offgrid_solar_energy_today') | float(0)) }}
+      - name: "Green Energy This Month"
+        unique_id: green_energy_this_month
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: >
+          {{ (states('sensor.living_room_smart_plug_this_month_s_consumption') | float(0)) +
+             (states('sensor.offgrid_solar_energy_this_month') | float(0)) }}
+      - name: "Grid Cost Today"
+        unique_id: grid_cost_today
+        unit_of_measurement: "$"
+        state: "{{ (states('sensor.wyants_walk_monitor_energy_today') | float(0) * 0.25) | round(2) }}"
+      - name: "Green Savings Today"
+        unique_id: green_savings_today
+        unit_of_measurement: "$"
+        state: "{{ (states('sensor.green_energy_today') | float(0) * 0.25) | round(2) }}"
+
+      # iCharger MPPT 48100 Sensors
+      - name: "iCharger Battery Voltage"
+        unique_id: icharger_batt_v
+        state: "{{ state_attr('sensor.icharger_mppt_raw_data', 'batt_v') }}"
+        device_class: voltage
+        state_class: measurement
+        unit_of_measurement: "V"
+
+      - name: "iCharger PV Voltage"
+        unique_id: icharger_pv_v
+        state: "{{ state_attr('sensor.icharger_mppt_raw_data', 'pv_v') }}"
+        device_class: voltage
+        state_class: measurement
+        unit_of_measurement: "V"
+
+      - name: "iCharger Charge Current"
+        unique_id: icharger_charge_a
+        state: "{{ state_attr('sensor.icharger_mppt_raw_data', 'charge_a') }}"
+        device_class: current
+        state_class: measurement
+        unit_of_measurement: "A"
+
+      - name: "iCharger Charge Power"
+        unique_id: icharger_charge_w
+        state: "{{ state_attr('sensor.icharger_mppt_raw_data', 'charge_w') }}"
+        device_class: power
+        state_class: measurement
+        unit_of_measurement: "W"
+
+      - name: "iCharger Total Energy"
+        unique_id: icharger_total_energy
+        state: "{{ (state_attr('sensor.icharger_mppt_raw_data', 'total_energy_wh') | float(0) / 1000) | round(2) }}"
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: "kWh"
+
+      - name: "iCharger Controller Temperature"
+        unique_id: icharger_temp_f
+        state: "{{ state_attr('sensor.icharger_mppt_raw_data', 'temp_f') }}"
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: "F"
+
+      - name: "iCharger Status"
+        unique_id: icharger_status
+        state: >
+          {% set code = state_attr('sensor.icharger_mppt_raw_data', 'status_code') | int(0) %}
+          {% set mapper = { 0: 'Standby', 1: 'Charging', 2: 'Float', 3: 'Fault' } %}
+          {{ mapper.get(code, 'Unknown (' ~ code ~ ')') }}
+        icon: mdi:information-outline
+
+      - name: "iCharger Battery State of Charge"
+        unique_id: icharger_battery_soc
+        device_class: battery
+        state_class: measurement
+        unit_of_measurement: "%"
+        state: >
+          {% set v = states('sensor.icharger_battery_voltage') | float(-1) %}
+          {% if v < 0 %}
+            unknown
+          {% elif v >= 54.0 %}
+            100
+          {% elif v >= 53.2 %}
+            {{ (90 + (v - 53.2) / (54.0 - 53.2) * 10) | round(0) }}
+          {% elif v >= 52.8 %}
+            {{ (70 + (v - 52.8) / (53.2 - 52.8) * 20) | round(0) }}
+          {% elif v >= 52.4 %}
+            {{ (40 + (v - 52.4) / (52.8 - 52.4) * 30) | round(0) }}
+          {% elif v >= 52.0 %}
+            {{ (20 + (v - 52.0) / (52.4 - 52.0) * 20) | round(0) }}
+          {% elif v >= 51.2 %}
+            {{ (10 + (v - 51.2) / (52.0 - 51.2) * 10) | round(0) }}
+          {% elif v >= 48.0 %}
+            {{ ((v - 48.0) / (51.2 - 48.0) * 10) | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+
+      - name: "Green Energy Generated Today"
+        unique_id: green_energy_generated_today
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: "kWh"
+        state: "{{ states('sensor.icharger_solar_energy_daily') | float(0) }}"
+
+      - name: "Green Energy Generated This Month"
+        unique_id: green_energy_generated_this_month
+        device_class: energy
+        state_class: total_increasing
+        unit_of_measurement: "kWh"
+        state: "{{ states('sensor.icharger_solar_energy_monthly') | float(0) }}"
+
+  - binary_sensor:
+      - name: "Living Room Plug Anomaly"
+        unique_id: living_room_plug_anomaly
+        device_class: problem
+        state: >
+          {% set current = states('sensor.living_room_smart_plug_current_consumption') | float(0) %}
+          {% set mean = states('sensor.living_room_plug_power_stats') | float(0) %}
+          {% set std_dev = states('sensor.living_room_plug_power_std_dev') | float(0) %}
+          {{ current > (mean + (3 * std_dev)) and current > 10 }}
+
+# Sensors block (Keep statistics here)
+sensor:
+  - platform: statistics
+    name: "Living Room Plug Power Stats"
+    entity_id: sensor.living_room_smart_plug_current_consumption
+    state_characteristic: mean
+    sampling_size: 1440
+    max_age:
+      hours: 24
+  - platform: statistics
+    name: "Living Room Plug Power Std Dev"
+    entity_id: sensor.living_room_smart_plug_current_consumption
+    state_characteristic: standard_deviation
+    sampling_size: 1440
+    max_age:
+      hours: 24
+
+# REST Ingestion
+rest:
+  - resource: http://10.1.3.13:8081/api/v1/latest
+    headers:
+      X-API-Key: supersecretkey
+    scan_interval: 20
+    sensor:
+      - name: "iCharger MPPT Raw Data"
+        unique_id: icharger_mppt_raw_data
+        value_template: "{{ value_json.timestamp }}"
+        json_attributes:
+          - system_v
+          - status_code
+          - batt_v
+          - charge_a
+          - charge_w
+          - total_energy_wh
+          - pv_v
+          - temp_f

@@ -1,0 +1,1492 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_home",
+  "data": {
+    "config": {
+      "title": "LCARS Tactical Command",
+      "views": [
+        {
+          "title": "Tactical Command",
+          "path": "tactical",
+          "icon": "mdi:monitor-dashboard",
+          "type": "masonry",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "grid",
+                  "columns": 2,
+                  "square": false,
+                  "cards": [
+                    {
+                      "type": "custom:tabbed-card",
+                      "attributes": {
+                        "keep_rendered": true
+                      },
+                      "styles": {
+                        "--mdc-theme-primary": "#00FF00",
+                        "--mdc-tab-text-label-color-default": "#FFFFFF",
+                        "--mdc-tab-color-activated": "#00FF00",
+                        "--mdc-typography-button-font-size": "12px",
+                        "--mdc-tab-horizontal-padding": "8px"
+                      },
+                      "card_mod": {
+                        "style": "ha-card {\n  border-top: 8px solid #00FF00;\n  border-left: 20px solid #00FF00;\n  border-radius: 20px 0 0 0;\n  background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);\n}\n"
+                      },
+                      "tabs": [
+                        {
+                          "label": "LIVE",
+                          "card": {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                              {
+                                "entity": "sensor.green_power_live",
+                                "name": "SOLAR"
+                              }
+                            ],
+                            "name": "SOLAR LIVE",
+                            "line_color": "#00FF00",
+                            "show": {
+                              "icon": false
+                            }
+                          }
+                        },
+                        {
+                          "label": "TODAY",
+                          "card": {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                              {
+                                "entity": "sensor.green_energy_today",
+                                "name": "TODAY"
+                              }
+                            ],
+                            "name": "SOLAR TODAY",
+                            "line_color": "#00FF00",
+                            "show": {
+                              "icon": false,
+                              "graph": "bar"
+                            }
+                          }
+                        },
+                        {
+                          "label": "BILL",
+                          "card": {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                              {
+                                "entity": "sensor.green_energy_this_month",
+                                "name": "BILL"
+                              }
+                            ],
+                            "name": "SOLAR BILL",
+                            "line_color": "#00FF00",
+                            "show": {
+                              "icon": false,
+                              "graph": "bar"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "custom:tabbed-card",
+                      "attributes": {
+                        "keep_rendered": true
+                      },
+                      "styles": {
+                        "--mdc-theme-primary": "#FF9900",
+                        "--mdc-tab-text-label-color-default": "#FFFFFF",
+                        "--mdc-tab-color-activated": "#FF9900",
+                        "--mdc-typography-button-font-size": "12px",
+                        "--mdc-tab-horizontal-padding": "8px"
+                      },
+                      "card_mod": {
+                        "style": "ha-card {\n  border-top: 8px solid #FF9900;\n  border-right: 20px solid #FF9900;\n  border-radius: 0 20px 0 0;\n  background: linear-gradient(225deg, rgba(255, 153, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);\n}\n"
+                      },
+                      "tabs": [
+                        {
+                          "label": "LIVE",
+                          "card": {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                              {
+                                "entity": "sensor.wyants_walk_monitor_power_minute_average",
+                                "name": "LOAD"
+                              }
+                            ],
+                            "name": "LOAD LIVE",
+                            "line_color": "#FF9900",
+                            "show": {
+                              "icon": false
+                            }
+                          }
+                        },
+                        {
+                          "label": "TODAY",
+                          "card": {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                              {
+                                "entity": "sensor.eps_energy_daily",
+                                "name": "TODAY"
+                              }
+                            ],
+                            "name": "LOAD TODAY",
+                            "line_color": "#FF9900",
+                            "show": {
+                              "icon": false,
+                              "graph": "bar"
+                            }
+                          }
+                        },
+                        {
+                          "label": "BILL",
+                          "card": {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                              {
+                                "entity": "sensor.eps_energy_billing",
+                                "name": "BILL"
+                              }
+                            ],
+                            "name": "LOAD BILL",
+                            "line_color": "#FF9900",
+                            "show": {
+                              "icon": false,
+                              "graph": "bar"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-chips-card",
+                  "alignment": "center",
+                  "chips": [
+                    {
+                      "type": "template",
+                      "icon": "mdi:solar-power-variant",
+                      "icon_color": "green",
+                      "content": "PV: {{ states('sensor.icharger_pv_voltage') }} V"
+                    },
+                    {
+                      "type": "template",
+                      "icon": "mdi:battery",
+                      "icon_color": "blue",
+                      "content": "Batt: {{ states('sensor.icharger_battery_voltage') }} V"
+                    },
+                    {
+                      "type": "template",
+                      "icon": "{% set soc = states('sensor.icharger_battery_soc') | int(0) %} {% if soc >= 90 %} mdi:battery-100 {% elif soc >= 80 %} mdi:battery-80 {% elif soc >= 60 %} mdi:battery-60 {% elif soc >= 40 %} mdi:battery-40 {% elif soc >= 20 %} mdi:battery-20 {% else %} mdi:battery-alert {% endif %}",
+                      "icon_color": "{% set soc = states('sensor.icharger_battery_soc') | int(0) %} {% if soc >= 50 %} green {% elif soc >= 20 %} orange {% else %} red {% endif %}",
+                      "content": "SoC: {{ states('sensor.icharger_battery_soc') }} %"
+                    }
+                  ],
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-left: 10px solid #00FF33;\n  border-radius: 0 10px 10px 0;\n  padding: 8px;\n  margin-bottom: 15px;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "ENVIRONMENTAL CONTROLS",
+                  "subtitle": "LIGHTING SUBSYSTEM",
+                  "alignment": "center"
+                },
+                {
+                  "type": "grid",
+                  "columns": 2,
+                  "square": false,
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-light-card",
+                      "entity": "light.bedroom",
+                      "name": "BEDROOM",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "show_brightness_control": true,
+                      "show_color_control": true,
+                      "use_light_color": true,
+                      "card_mod": {
+                        "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-light-card",
+                      "entity": "light.living_room",
+                      "name": "LIVING ROOM",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "show_brightness_control": true,
+                      "show_color_control": true,
+                      "use_light_color": true,
+                      "card_mod": {
+                        "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.table_light",
+                      "name": "TABLE LIGHT",
+                      "icon": "mdi:lamp",
+                      "tap_action": {
+                        "action": "toggle",
+                        "confirmation": {
+                          "text": "Confirm Power State Change?"
+                        }
+                      },
+                      "hold_action": {
+                        "action": "more-info"
+                      },
+                      "card_mod": {
+                        "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #FF9900;\n  border-radius: 0 10px 10px 0;\n}\n"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-light-card",
+                      "entity": "light.closet",
+                      "name": "CLOSET",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "show_brightness_control": true,
+                      "show_color_control": true,
+                      "use_light_color": true,
+                      "card_mod": {
+                        "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-light-card",
+                      "entity": "light.library",
+                      "name": "LIBRARY",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "show_brightness_control": true,
+                      "show_color_control": true,
+                      "use_light_color": true,
+                      "card_mod": {
+                        "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-light-card",
+                      "entity": "light.arc_reactor",
+                      "name": "ARC REACTOR",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "show_brightness_control": true,
+                      "show_color_control": true,
+                      "use_light_color": true,
+                      "card_mod": {
+                        "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "EXTERNAL SENSORS",
+                  "subtitle": "LIVE FEED OVERWATCH",
+                  "alignment": "center"
+                },
+                {
+                  "type": "vertical-stack",
+                  "card_mod": {
+                    "class": "lcars-glass-panel"
+                  },
+                  "cards": [
+                    {
+                      "type": "picture-glance",
+                      "title": "FRONT DOOR",
+                      "camera_image": "camera.front_door_live_view",
+                      "entities": [],
+                      "card_mod": {
+                        "style": "ha-card { border: none; border-radius: 16px 16px 0 0; }\n"
+                      }
+                    },
+                    {
+                      "type": "picture-glance",
+                      "title": "DRIVEWAY",
+                      "camera_image": "camera.outdoor_1_live_view",
+                      "entities": [],
+                      "card_mod": {
+                        "style": "ha-card { border: none; border-radius: 0; }\n"
+                      }
+                    },
+                    {
+                      "type": "picture-glance",
+                      "title": "CAT CAM",
+                      "camera_image": "camera.cat_live_view",
+                      "entities": [],
+                      "card_mod": {
+                        "style": "ha-card { border: none; border-radius: 0 0 16px 16px; border-bottom: 10px solid #99CCFF; }\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "card_mod": {
+                "class": "lcars-elbow-bottom-right"
+              },
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "EPS DISTRIBUTION",
+                  "subtitle": "POWER CONDUIT DIAGNOSTIC",
+                  "alignment": "left",
+                  "card_mod": {
+                    "style": "ha-card { padding-left: 10px; }\n"
+                  }
+                },
+                {
+                  "type": "vertical-stack",
+                  "card_mod": {
+                    "class": "lcars-glass-panel"
+                  },
+                  "cards": [
+                    {
+                      "type": "custom:mini-graph-card",
+                      "name": "HVAC (HEAT PUMPS)",
+                      "entities": [
+                        "sensor.heat_pump_east_energy_this_month",
+                        "sensor.heat_pump_mid_energy_this_month",
+                        "sensor.heat_pump_west_energy_this_month"
+                      ],
+                      "hours_to_show": 24,
+                      "points_per_hour": 1,
+                      "line_width": 3,
+                      "font_size": 75,
+                      "animate": true,
+                      "show": {
+                        "fill": "fade",
+                        "icon": false,
+                        "state": true
+                      },
+                      "color_thresholds": [
+                        {
+                          "value": 0,
+                          "color": "#99CCFF"
+                        },
+                        {
+                          "value": 50,
+                          "color": "#FF9900"
+                        },
+                        {
+                          "value": 100,
+                          "color": "#FF3333"
+                        }
+                      ],
+                      "card_mod": {
+                        "class": "{% set total = states('sensor.heat_pump_east_energy_this_month')|float(0) + states('sensor.heat_pump_mid_energy_this_month')|float(0) + states('sensor.heat_pump_west_energy_this_month')|float(0) %} {% if total > 100 %} eps-conduit-critical {% elif total > 50 %} eps-conduit-high {% else %} eps-conduit {% endif %}"
+                      }
+                    },
+                    {
+                      "type": "custom:mini-graph-card",
+                      "name": "WATER HEATER",
+                      "entities": [
+                        "sensor.water_heater_energy_this_month"
+                      ],
+                      "hours_to_show": 24,
+                      "points_per_hour": 1,
+                      "line_width": 3,
+                      "font_size": 75,
+                      "animate": true,
+                      "show": {
+                        "fill": "fade",
+                        "icon": false,
+                        "state": true
+                      },
+                      "color_thresholds": [
+                        {
+                          "value": 0,
+                          "color": "#99CCFF"
+                        },
+                        {
+                          "value": 30,
+                          "color": "#FF9900"
+                        },
+                        {
+                          "value": 60,
+                          "color": "#FF3333"
+                        }
+                      ],
+                      "card_mod": {
+                        "class": "{% set val = states('sensor.water_heater_energy_this_month')|float(0) %} {% if val > 60 %} eps-conduit-critical {% elif val > 30 %} eps-conduit-high {% else %} eps-conduit {% endif %}"
+                      }
+                    },
+                    {
+                      "type": "custom:mini-graph-card",
+                      "name": "AUXILIARY SYSTEMS",
+                      "entities": [
+                        "sensor.dryer_energy_this_month",
+                        "sensor.stove_energy_this_month",
+                        "sensor.water_pump_energy_this_month"
+                      ],
+                      "hours_to_show": 24,
+                      "points_per_hour": 1,
+                      "line_width": 3,
+                      "font_size": 75,
+                      "animate": true,
+                      "show": {
+                        "fill": "fade",
+                        "icon": false,
+                        "state": true
+                      },
+                      "color_thresholds": [
+                        {
+                          "value": 0,
+                          "color": "#99CCFF"
+                        },
+                        {
+                          "value": 20,
+                          "color": "#FF9900"
+                        },
+                        {
+                          "value": 50,
+                          "color": "#FF3333"
+                        }
+                      ],
+                      "card_mod": {
+                        "class": "{% set total = states('sensor.dryer_energy_this_month')|float(0) + states('sensor.stove_energy_this_month')|float(0) + states('sensor.water_pump_energy_this_month')|float(0) %} {% if total > 50 %} eps-conduit-critical {% elif total > 20 %} eps-conduit-high {% else %} eps-conduit {% endif %}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "TACTICAL COMMANDS",
+                  "subtitle": "QUICK ACTIONS",
+                  "alignment": "left",
+                  "card_mod": {
+                    "style": "ha-card { padding-left: 10px; margin-top: 20px; }\n"
+                  }
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "RED ALERT",
+                      "secondary": "Spectrum Diagnostic",
+                      "icon": "mdi:alert-octagon",
+                      "icon_color": "red",
+                      "layout": "vertical",
+                      "entity": "input_boolean.rainbow_mode_active",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "card_mod": {
+                        "style": "ha-card { background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); }\n"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-template-card",
+                      "primary": "LOCKDOWN",
+                      "secondary": "Secure Perimeter",
+                      "icon": "mdi:shield-lock",
+                      "icon_color": "blue",
+                      "layout": "vertical",
+                      "tap_action": {
+                        "action": "none"
+                      },
+                      "card_mod": {
+                        "style": "ha-card { background: rgba(153, 204, 255, 0.1); border: 1px solid rgba(153, 204, 255, 0.3); }\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sun.sun",
+                "sensor.sun_next_dawn",
+                "sensor.sun_next_dusk",
+                "sensor.sun_next_midnight",
+                "sensor.sun_next_noon",
+                "sensor.sun_next_rising",
+                "sensor.sun_next_setting"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Main Bridge",
+          "path": "bridge",
+          "icon": "mdi:bridge",
+          "type": "masonry",
+          "cards": [
+            {
+              "type": "custom:mushroom-title-card",
+              "title": "TACTICAL DISPLAY",
+              "subtitle": "SYSTEM STATUS: NOMINAL",
+              "alignment": "center",
+              "card_mod": {
+                "style": "ha-card {\n  border-top: 15px solid #FF9900;\n  border-left: 40px solid #FF9900;\n  border-radius: 25px 0 0 0;\n  background: none;\n}\n"
+              }
+            },
+            {
+              "type": "grid",
+              "columns": 2,
+              "square": false,
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.living_room",
+                  "name": "LIVING ROOM",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "switch.table_light",
+                  "name": "TABLE LIGHT",
+                  "tap_action": {
+                    "action": "toggle",
+                    "confirmation": {
+                      "text": "Confirm Power State Change?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #FF9900;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.bedroom",
+                  "name": "BEDROOM",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.library",
+                  "name": "LIBRARY",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.closet",
+                  "name": "CLOSET",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office",
+                  "name": "OFFICE",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "custom:mushroom-title-card",
+              "title": "PERIMETER & AUXILIARY",
+              "subtitle": "EXTERNAL ACCESS CONTROLS",
+              "alignment": "center"
+            },
+            {
+              "type": "grid",
+              "columns": 2,
+              "square": false,
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.west_door",
+                  "name": "WEST DOOR",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.east_door",
+                  "name": "EAST DOOR",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.arc_reactor",
+                  "name": "ARC REACTOR",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.bar",
+                  "name": "BAR",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "show_brightness_control": true,
+                  "show_color_control": true,
+                  "use_light_color": true,
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #CC99CC;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "custom:mushroom-title-card",
+              "title": "AUXILIARY POWER",
+              "subtitle": "SMART SWITCH MONITORING",
+              "alignment": "center"
+            },
+            {
+              "type": "grid",
+              "columns": 2,
+              "square": false,
+              "cards": [
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "switch.living_room_smart_plug",
+                  "name": "GREEN PLUG",
+                  "icon": "mdi:solar-power",
+                  "tap_action": {
+                    "action": "toggle",
+                    "confirmation": {
+                      "text": "Confirm Power State Change?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #FF9900;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "switch.troubleshooting_smart_plug",
+                  "name": "FRIDGE",
+                  "icon": "mdi:fridge",
+                  "tap_action": {
+                    "action": "toggle",
+                    "confirmation": {
+                      "text": "Confirm Power State Change?"
+                    }
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "card_mod": {
+                    "style": "ha-card {\n  background: rgba(0,0,0,0.5);\n  backdrop-filter: blur(25px);\n  border-left: 10px solid #FF9900;\n  border-radius: 0 10px 10px 0;\n}\n"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "custom:mushroom-title-card",
+              "title": "EXPERIMENTAL: SPECTRUM CONTROL",
+              "subtitle": "ADVANCED COLOR MANAGEMENT",
+              "alignment": "center"
+            },
+            {
+              "type": "custom:mushroom-chips-card",
+              "alignment": "center",
+              "chips": [
+                {
+                  "type": "template",
+                  "icon": "mdi:alert-circle",
+                  "content": "RED",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.turn_on",
+                    "data": {
+                      "rgb_color": [
+                        255,
+                        0,
+                        0
+                      ],
+                      "brightness_pct": 100
+                    },
+                    "target": {
+                      "entity_id": [
+                        "light.living_room",
+                        "light.bar",
+                        "light.bedroom",
+                        "light.library",
+                        "light.office",
+                        "light.closet"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "template",
+                  "icon": "mdi:shield-check",
+                  "content": "BLUE",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.turn_on",
+                    "data": {
+                      "rgb_color": [
+                        0,
+                        0,
+                        255
+                      ],
+                      "brightness_pct": 100
+                    },
+                    "target": {
+                      "entity_id": [
+                        "light.living_room",
+                        "light.bar",
+                        "light.bedroom",
+                        "light.library",
+                        "light.office",
+                        "light.closet"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "template",
+                  "icon": "mdi:star",
+                  "content": "GOLD",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.turn_on",
+                    "data": {
+                      "rgb_color": [
+                        255,
+                        153,
+                        0
+                      ],
+                      "brightness_pct": 100
+                    },
+                    "target": {
+                      "entity_id": [
+                        "light.living_room",
+                        "light.bar",
+                        "light.bedroom",
+                        "light.library",
+                        "light.office",
+                        "light.closet"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "template",
+                  "icon": "mdi:flask",
+                  "content": "PURPLE",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.turn_on",
+                    "data": {
+                      "rgb_color": [
+                        204,
+                        153,
+                        204
+                      ],
+                      "brightness_pct": 100
+                    },
+                    "target": {
+                      "entity_id": [
+                        "light.living_room",
+                        "light.bar",
+                        "light.bedroom",
+                        "light.library",
+                        "light.office",
+                        "light.closet"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "template",
+                  "icon": "mdi:leaf",
+                  "content": "GREEN",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "light.turn_on",
+                    "data": {
+                      "rgb_color": [
+                        0,
+                        255,
+                        0
+                      ],
+                      "brightness_pct": 100
+                    },
+                    "target": {
+                      "entity_id": [
+                        "light.living_room",
+                        "light.bar",
+                        "light.bedroom",
+                        "light.library",
+                        "light.office",
+                        "light.closet"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "columns": 2,
+              "square": false,
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.living_room",
+                  "name": "L-R COLOR",
+                  "show_color_control": true,
+                  "collapsible_controls": false
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.bar",
+                  "name": "BAR COLOR",
+                  "show_color_control": true,
+                  "collapsible_controls": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Engineering",
+          "path": "engineering",
+          "icon": "mdi:engine",
+          "type": "masonry",
+          "cards": [
+            {
+              "type": "custom:tabbed-card",
+              "is_scrollable": true,
+              "keep_rendered": true,
+              "tabs": [
+                {
+                  "attributes": {
+                    "label": "Current"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.wyants_walk_monitor_power_minute_average"
+                    ],
+                    "name": "TOTAL HOUSE LOAD (W)",
+                    "line_color": "#FF9900",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Today"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.wyants_walk_monitor_energy_today"
+                    ],
+                    "name": "TOTAL TODAY (kWh)",
+                    "line_color": "#CC99CC",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Cycle"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.wyants_walk_monitor_house_power_billing_cycle"
+                    ],
+                    "name": "TOTAL BILLING CYCLE",
+                    "line_color": "#99CCFF",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-top: 15px solid #FF9900;\n  border-left: 15px solid #FF9900;\n  border-radius: 20px 0 0 0;\n  background: rgba(0, 0, 0, 0.85);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-right: 1px solid rgba(255, 153, 0, 0.2);\n  border-bottom: 1px solid rgba(255, 153, 0, 0.2);\n  box-shadow: 0 0 15px rgba(255, 153, 0, 0.15);\n}\n"
+              }
+            },
+            {
+              "type": "custom:tabbed-card",
+              "is_scrollable": true,
+              "keep_rendered": true,
+              "tabs": [
+                {
+                  "attributes": {
+                    "label": "Current"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.green_power_live"
+                    ],
+                    "name": "GREEN POWER LIVE (W)",
+                    "line_color": "#00FF33",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Today"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.green_energy_today"
+                    ],
+                    "name": "GREEN ENERGY TODAY (kWh)",
+                    "line_color": "#33FF99",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Cycle"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.green_energy_billing"
+                    ],
+                    "name": "GREEN ENERGY BILLING (kWh)",
+                    "line_color": "#99FF33",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #00FF33;\n  border-radius: 0;\n  background: rgba(0, 0, 0, 0.85);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-top: 1px solid rgba(0, 255, 51, 0.2);\n  border-right: 1px solid rgba(0, 255, 51, 0.2);\n  border-bottom: 1px solid rgba(0, 255, 51, 0.2);\n  box-shadow: 0 0 15px rgba(0, 255, 51, 0.15);\n}\n"
+              }
+            },
+            {
+              "type": "custom:tabbed-card",
+              "is_scrollable": true,
+              "keep_rendered": true,
+              "tabs": [
+                {
+                  "attributes": {
+                    "label": "Solar Input"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "name": "ICHARGER PV INPUT",
+                    "entities": [
+                      {
+                        "entity": "sensor.icharger_charge_power",
+                        "name": "Power"
+                      },
+                      {
+                        "entity": "sensor.icharger_pv_voltage",
+                        "name": "PV Voltage",
+                        "y_axis": "secondary"
+                      }
+                    ],
+                    "hours_to_show": 24,
+                    "line_width": 3,
+                    "show": {
+                      "fill": "fade"
+                    },
+                    "color_thresholds": [
+                      {
+                        "value": 0,
+                        "color": "#00FF33"
+                      }
+                    ],
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Battery"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "name": "ICHARGER BATTERY STATUS",
+                    "entities": [
+                      {
+                        "entity": "sensor.icharger_battery_voltage",
+                        "name": "Voltage"
+                      },
+                      {
+                        "entity": "sensor.icharger_battery_soc",
+                        "name": "SoC",
+                        "y_axis": "secondary"
+                      }
+                    ],
+                    "hours_to_show": 24,
+                    "line_width": 3,
+                    "show": {
+                      "fill": "fade"
+                    },
+                    "color_thresholds": [
+                      {
+                        "value": 0,
+                        "color": "#3399FF"
+                      }
+                    ],
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Thermal & Current"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "name": "ICHARGER THERMAL & CURRENT",
+                    "entities": [
+                      {
+                        "entity": "sensor.icharger_controller_temperature",
+                        "name": "Temp"
+                      },
+                      {
+                        "entity": "sensor.icharger_charge_current",
+                        "name": "Current",
+                        "y_axis": "secondary"
+                      }
+                    ],
+                    "hours_to_show": 24,
+                    "line_width": 3,
+                    "show": {
+                      "fill": "fade"
+                    },
+                    "color_thresholds": [
+                      {
+                        "value": 0,
+                        "color": "#FF9900"
+                      }
+                    ],
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Diagnostics"
+                  },
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      "sensor.icharger_charge_power",
+                      "sensor.icharger_battery_voltage",
+                      "sensor.icharger_battery_soc",
+                      "sensor.icharger_pv_voltage",
+                      "sensor.icharger_charge_current",
+                      "sensor.icharger_controller_temperature",
+                      "sensor.icharger_status",
+                      "sensor.icharger_total_energy"
+                    ]
+                  }
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #00FF33;\n  border-radius: 0;\n  background: rgba(0, 0, 0, 0.85);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-top: 1px solid rgba(0, 255, 51, 0.2);\n  border-right: 1px solid rgba(0, 255, 51, 0.2);\n  border-bottom: 1px solid rgba(0, 255, 51, 0.2);\n  box-shadow: 0 0 15px rgba(0, 255, 51, 0.15);\n}\n"
+              }
+            },
+            {
+              "type": "custom:tabbed-card",
+              "is_scrollable": true,
+              "keep_rendered": true,
+              "tabs": [
+                {
+                  "attributes": {
+                    "label": "Current"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      {
+                        "entity": "sensor.heat_pump_east_power_minute_average",
+                        "name": "East"
+                      },
+                      {
+                        "entity": "sensor.heat_pump_mid_power_minute_average",
+                        "name": "Mid"
+                      },
+                      {
+                        "entity": "sensor.heat_pump_west_power_minute_average",
+                        "name": "West"
+                      }
+                    ],
+                    "name": "HEAT PUMP ARRAY (W)",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Today"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      {
+                        "entity": "sensor.heat_pump_east_energy_today",
+                        "name": "East"
+                      },
+                      {
+                        "entity": "sensor.heat_pump_mid_energy_today",
+                        "name": "Mid"
+                      },
+                      {
+                        "entity": "sensor.heat_pump_west_energy_today",
+                        "name": "West"
+                      }
+                    ],
+                    "name": "ARRAY TODAY (kWh)",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Cycle"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      {
+                        "entity": "sensor.heat_pump_east_billing",
+                        "name": "East"
+                      },
+                      {
+                        "entity": "sensor.heat_pump_mid_billing",
+                        "name": "Mid"
+                      },
+                      {
+                        "entity": "sensor.heat_pump_west_billing",
+                        "name": "West"
+                      }
+                    ],
+                    "name": "ARRAY BILLING CYCLE",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #99CCFF;\n  border-radius: 0;\n  background: rgba(0, 0, 0, 0.85);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-top: 1px solid rgba(153, 204, 255, 0.2);\n  border-right: 1px solid rgba(153, 204, 255, 0.2);\n  border-bottom: 1px solid rgba(153, 204, 255, 0.2);\n  box-shadow: 0 0 15px rgba(153, 204, 255, 0.15);\n}\n"
+              }
+            },
+            {
+              "type": "custom:tabbed-card",
+              "is_scrollable": true,
+              "keep_rendered": true,
+              "tabs": [
+                {
+                  "attributes": {
+                    "label": "Current"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.water_heater_power_minute_average"
+                    ],
+                    "name": "WATER HEATER (W)",
+                    "line_color": "#FF9900",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Today"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.water_heater_energy_today"
+                    ],
+                    "name": "WATER HEATER TODAY",
+                    "line_color": "#CC99CC",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Cycle"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.water_heater_billing"
+                    ],
+                    "name": "WATER HEATER CYCLE",
+                    "line_color": "#99CCFF",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #FF9900;\n  border-radius: 0;\n  background: rgba(0, 0, 0, 0.85);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-top: 1px solid rgba(255, 153, 0, 0.2);\n  border-right: 1px solid rgba(255, 153, 0, 0.2);\n  border-bottom: 1px solid rgba(255, 153, 0, 0.2);\n  box-shadow: 0 0 15px rgba(255, 153, 0, 0.15);\n}\n"
+              }
+            },
+            {
+              "type": "custom:tabbed-card",
+              "is_scrollable": true,
+              "keep_rendered": true,
+              "tabs": [
+                {
+                  "attributes": {
+                    "label": "Current"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.furnace_power_minute_average"
+                    ],
+                    "name": "FURNACE (W)",
+                    "line_color": "#CC99CC",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Today"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.furnace_energy_today"
+                    ],
+                    "name": "FURNACE TODAY",
+                    "line_color": "#99CCFF",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Cycle"
+                  },
+                  "card": {
+                    "type": "custom:mini-graph-card",
+                    "entities": [
+                      "sensor.furnace_billing"
+                    ],
+                    "name": "FURNACE CYCLE",
+                    "line_color": "#FF9900",
+                    "card_mod": {
+                      "class": "eps-conduit"
+                    }
+                  }
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #CC99CC;\n  border-radius: 0;\n  background: rgba(0, 0, 0, 0.85);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-top: 1px solid rgba(204, 153, 204, 0.2);\n  border-right: 1px solid rgba(204, 153, 204, 0.2);\n  border-bottom: 1px solid rgba(204, 153, 204, 0.2);\n  box-shadow: 0 0 15px rgba(204, 153, 204, 0.15);\n}\n"
+              }
+            },
+            {
+              "type": "custom:tabbed-card",
+              "is_scrollable": true,
+              "keep_rendered": true,
+              "tabs": [
+                {
+                  "attributes": {
+                    "label": "Current"
+                  },
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      "sensor.dryer_power_minute_average",
+                      "sensor.stove_power_minute_average",
+                      "sensor.water_pump_power_minute_average",
+                      "sensor.kitchen_gfi_power_minute_average"
+                    ]
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Today"
+                  },
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      "sensor.dryer_energy_today",
+                      "sensor.stove_energy_today",
+                      "sensor.water_pump_energy_today",
+                      "sensor.kitchen_gfi_energy_today"
+                    ]
+                  }
+                },
+                {
+                  "attributes": {
+                    "label": "Cycle"
+                  },
+                  "card": {
+                    "type": "entities",
+                    "entities": [
+                      "sensor.dryer_billing",
+                      "sensor.stove_billing",
+                      "sensor.water_pump_billing",
+                      "sensor.kitchen_gfi_billing"
+                    ]
+                  }
+                }
+              ],
+              "card_mod": {
+                "style": "ha-card {\n  border-bottom: 15px solid #99CCFF;\n  border-right: 15px solid #99CCFF;\n  border-radius: 0 0 20px 0;\n  background: rgba(0, 0, 0, 0.85);\n  backdrop-filter: blur(25px);\n  -webkit-backdrop-filter: blur(25px);\n  border-top: 1px solid rgba(153, 204, 255, 0.2);\n  border-left: 1px solid rgba(153, 204, 255, 0.2);\n  box-shadow: 0 0 15px rgba(153, 204, 255, 0.15);\n}\n"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Overwatch",
+          "path": "overwatch",
+          "icon": "mdi:cctv",
+          "panel": true,
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-title-card",
+                  "title": "EXTERNAL SENSORS",
+                  "subtitle": "MAIN VIEWER",
+                  "alignment": "center",
+                  "card_mod": {
+                    "style": "ha-card {\n  background: none;\n  border-top: 10px solid #99CCFF;\n  border-radius: 20px 0 0 0;\n  padding-top: 10px;\n}\n"
+                  }
+                },
+                {
+                  "type": "grid",
+                  "columns": 3,
+                  "square": false,
+                  "cards": [
+                    {
+                      "type": "picture-glance",
+                      "title": "FRONT DOOR",
+                      "camera_image": "camera.front_door_live_view",
+                      "entities": [],
+                      "card_mod": {
+                        "style": "ha-card {\n  border: 5px solid #CC99CC;\n  border-radius: 20px 0 20px 0;\n}\n"
+                      }
+                    },
+                    {
+                      "type": "picture-glance",
+                      "title": "OUTDOOR 1",
+                      "camera_image": "camera.outdoor_1_live_view",
+                      "entities": [],
+                      "card_mod": {
+                        "style": "ha-card {\n  border: 5px solid #FF9900;\n  border-radius: 0 20px 0 20px;\n}\n"
+                      }
+                    },
+                    {
+                      "type": "picture-glance",
+                      "title": "CAT CAM",
+                      "camera_image": "camera.cat_live_view",
+                      "entities": [],
+                      "card_mod": {
+                        "style": "ha-card {\n  border: 5px solid #99CCFF;\n  border-radius: 20px 0 20px 0;\n}\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

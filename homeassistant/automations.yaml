@@ -1,0 +1,63 @@
+- id: icharger_controller_fault_alert
+  alias: "iCharger Controller Fault Alert"
+  description: "Triggers a persistent notification if the iCharger MPPT status changes to Fault."
+  trigger:
+    - platform: state
+      entity_id: sensor.icharger_status
+      to: "Fault"
+  action:
+    - service: persistent_notification.create
+      data:
+        title: "iCharger MPPT Fault Detected"
+        message: "The iCharger MPPT controller has reported a Fault state at {{ now().strftime('%Y-%m-%d %H:%M:%S') }}."
+        notification_id: "icharger_fault_alert"
+
+- id: icharger_excess_solar_load_trigger
+  alias: "iCharger Excess Solar Load Trigger"
+  description: "Turns on the living room smart plug when charging power exceeds 2200W for 5 minutes, and turns it off when it drops below 300W for 10 minutes."
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.icharger_charge_power
+      above: 2200
+      for:
+        minutes: 5
+      id: "turn_on"
+    - platform: numeric_state
+      entity_id: sensor.icharger_charge_power
+      below: 300
+      for:
+        minutes: 10
+      id: "turn_off"
+  condition: []
+  action:
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: "turn_on"
+          action:
+            - service: switch.turn_on
+              target:
+                entity_id: switch.living_room_smart_plug
+        - conditions:
+            - condition: trigger
+              id: "turn_off"
+          action:
+            - service: switch.turn_off
+              target:
+                entity_id: switch.living_room_smart_plug
+
+- id: icharger_low_battery_voltage_warning
+  alias: "iCharger Low Battery Voltage Warning"
+  description: "Triggers a warning notification if the battery voltage drops below 48.0V for more than 10 minutes."
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.icharger_battery_voltage
+      below: 48.0
+      for:
+        minutes: 10
+  action:
+    - service: persistent_notification.create
+      data:
+        title: "iCharger Low Battery Warning"
+        message: "Warning: Battery voltage has been below 48.0V (currently {{ states('sensor.icharger_battery_voltage') }}V) for over 10 minutes!"
+        notification_id: "icharger_low_battery_warning"

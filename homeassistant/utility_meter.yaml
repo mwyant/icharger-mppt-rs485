@@ -1,0 +1,91 @@
+# Heat Pumps
+heat_pump_east_billing:
+  source: sensor.heat_pump_east_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+heat_pump_mid_billing:
+  source: sensor.heat_pump_mid_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+heat_pump_west_billing:
+  source: sensor.heat_pump_west_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+
+# Major Appliances
+water_heater_billing:
+  source: sensor.water_heater_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+furnace_billing:
+  source: sensor.furnace_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+
+# Auxiliary
+dryer_billing:
+  source: sensor.dryer_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+stove_billing:
+  source: sensor.stove_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+water_pump_billing:
+  source: sensor.water_pump_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+kitchen_gfi_billing:
+  source: sensor.kitchen_gfi_energy_this_month
+  cycle: monthly
+  offset:
+    days: 21
+    
+# GREEN PLUG TRACKING
+green_energy_daily:
+  source: sensor.green_energy_today
+  cycle: daily
+green_energy_weekly:
+  source: sensor.green_energy_today
+  cycle: weekly
+green_energy_billing:
+  source: sensor.green_energy_today
+  cycle: monthly
+  offset:
+    days: 20
+
+# EPS MAIN TRACKING
+eps_energy_daily:
+  source: sensor.wyants_walk_monitor_energy_today
+  cycle: daily
+eps_energy_weekly:
+  source: sensor.wyants_walk_monitor_energy_today
+  cycle: weekly
+eps_energy_billing:
+  source: sensor.wyants_walk_monitor_energy_today
+  cycle: monthly
+  offset:
+    days: 20
+
+# iCharger MPPT Solar Energy Tracking
+icharger_solar_energy_daily:
+  source: sensor.icharger_total_energy
+  cycle: daily
+
+icharger_solar_energy_weekly:
+  source: sensor.icharger_total_energy
+  cycle: weekly
+
+icharger_solar_energy_monthly:
+  source: sensor.icharger_total_energy
+  cycle: monthly
+  offset:
+    days: 20
