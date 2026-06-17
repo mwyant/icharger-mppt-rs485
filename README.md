@@ -41,3 +41,13 @@ pip install pyserial
 ```
 
 Run the provided `mppt_poll.py` script to see live data.
+
+---
+
+## Disclaimer
+
+**Vibe Coded with ❤️.** 
+
+This project is the result of reverse-engineering and experimental "vibe coding." It is provided "as is" without any warranty of any kind, express or implied. The authors and contributors are not liable for any damage to your hardware, data loss, or any other issues arising from the use of this information or the provided scripts. 
+
+**Use at your own risk.** Always verify your wiring and parameters before connecting to high-voltage solar equipment.
