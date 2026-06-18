@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_documentation",
+  "data": {
+    "config": {
+      "title": "Infrastructure Documentation",
+      "views": [
+        {
+          "title": "System Overview",
+          "path": "overview",
+          "icon": "mdi:information-outline",
+          "type": "masonry",
+          "cards": [
+            {
+              "type": "custom:mushroom-title-card",
+              "title": "WYANT'S WALK",
+              "subtitle": "INFRASTRUCTURE LOG: 2026.06.18",
+              "alignment": "center",
+              "card_mod": {
+                "style": "ha-card {\n  border-top: 15px solid #FF9900;\n  border-left: 40px solid #FF9900;\n  border-radius: 25px 0 0 0;\n  background: none;\n}\n"
+              }
+            },
+            {
+              "type": "markdown",
+              "title": "NETWORK ARCHITECTURE",
+              "content": "### **Subnet: 10.1.3.0/24**\n**Domain:** `wyantswalk.int` | **Gateway:** `10.1.3.1`\n\n#### **Core Nodes**\n*   **Talonhub (10.1.3.12):** Debian + Docker. Pi-hole & Wyoming Stack.\n*   **Shelae (10.1.3.11):** Raspberry Pi 4. HAOS Appliance. Root access via `id_ed25519`.\n*   **Copernicus (10.1.3.13):** High-performance utility server. Hosts the **iCharger MPPT Polling Service** (Port 8081).\n\n#### **Voice & AI Pipeline**\n*   **Orchestration:** `universal-router` (Local-First). Routes via Resident Switchboard (Port 8002) and Expert Brain (Port 8001).\n*   **STT/TTS:** Whisper/Piper (Offloaded to Talonhub).\n",
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #CC99CC;\n  border-radius: 0;\n}\n"
+              }
+            },
+            {
+              "type": "markdown",
+              "title": "ENERGY MONITORING (EPS)",
+              "content": "### **iCharger MPPT 48100 Integration**\nReverse-engineered Modbus RTU polling via Copernicus (10.1.3.13:8081). \n\n### **Green Power Logic**\n*   **Live:** `sensor.green_power_live` (W) - Sum of Solar + Smart Plug.\n*   **SoC:** Custom 16S 48V LiFePO4 voltage curve interpolation.\n*   **LTS:** All sensors configured with `state_class` for infinite hourly retention.\n\n### **Automations**\n*   **Excess Solar:** 2200W trigger (on) / 300W (off) for Living Room load management.\n*   **Fault Alerts:** Persistent notifications for controller errors and low battery (<48V).\n",
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #00FF33;\n  border-radius: 0;\n}\n"
+              }
+            },
+            {
+              "type": "markdown",
+              "title": "UI & DASHBOARDS",
+              "content": "### **LCARS 2.2 \"Solar Sentinel\"**\n*   **Tactical Command:** Real-time MPPT diagnostics with glassmorphism chips.\n*   **Energy Analytics:** \n    *   **Plotly:** 24h Live Power Comparison.\n    *   **ApexCharts:** 14d Accumulation (Fixed y-axis title validation).\n*   **Styling:** `card_mod` glassmorphism (rgba 0.85, 25px blur).\n",
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #99CCFF;\n  border-radius: 0;\n}\n"
+              }
+            },
+            {
+              "type": "markdown",
+              "title": "COPERNICUS STACK & CRYPTO MINING",
+              "content": "### **Solar-Powered Crypto Mining**\n*   **CPU (i9-12900K):** XMR mining (~11-12 KH/s).\n*   **GPU (RTX 4060):** KawPow to Unmineable (XMR conversion).\n\n### **Copernicus Server Stack (10.1.3.13)**\n*   **iCharger API:** Port `8081` (REST ingestion).\n*   **Monero Node:** Port `18081`.\n*   **Jellyfin:** Port `8096`.\n*   **EmulatorJS:** Port `3000`/`3001`.\n",
+              "card_mod": {
+                "style": "ha-card {\n  border-left: 10px solid #4CAF50;\n  border-radius: 0;\n}\n"
+              }
+            },
+            {
+              "type": "markdown",
+              "title": "SYSTEM MAINTENANCE",
+              "content": "### **Data Integrity**\n*   **LTS Compliance:** Audited all energy sensors for `state_class` measurement/total_increasing.\n*   **Version Control:** `mwyant/icharger-mppt-rs485` (GitHub).\n*   **Deployment:** Automated via SSH/SCP bridge to `shelae`.\n",
+              "card_mod": {
+                "style": "ha-card {\n  border-bottom: 15px solid #CC99CC;\n  border-right: 40px solid #CC99CC;\n  border-radius: 0 0 25px 0;\n}\n"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

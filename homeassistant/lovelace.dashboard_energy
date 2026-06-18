@@ -195,11 +195,21 @@
               "yaxis": [
                 {
                   "id": "left",
+                  "apex_config": {
+                    "title": {
+                      "text": "Power (W)"
+                    }
+                  },
                   "decimals": 0,
                   "min": 0
                 },
                 {
                   "id": "right",
+                  "apex_config": {
+                    "title": {
+                      "text": "Voltage (V)"
+                    }
+                  },
                   "opposite": true,
                   "decimals": 1,
                   "min": 0
