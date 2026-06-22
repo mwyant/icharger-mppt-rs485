@@ -1,0 +1,6 @@
+```plaintext
+Analyzing the daily solar generation trend from June 18 to June 22, we observe a significant increase in energy production on June 20. The total energy generated over this period is 24.76 kWh (excluding the partial day of June 22). The average daily yield excluding the partial day is approximately 5.94 kWh.
+
+The peak charging power reached 3,097W on June 20, which is within the controller's rating for a 60A charge current at ~53V (3,180W). This suggests that the system is not being pushed to its limits in terms of maximum power handling.
+
+The peak times occurring late in the afternoon (16:30 to 18:00) suggest that the solar panels are likely oriented towards the west. This orientation maximizes energy capture

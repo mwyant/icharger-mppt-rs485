@@ -1,0 +1,9 @@
+```plaintext
+1. The maximum voltage of 54.5V observed on June 21 is within the safe absorption voltage range for a 16S LiFePO4 battery bank, which is typically 54.0V - 54.4V. This indicates that the battery bank is being charged within the recommended limits, ensuring the cells do not overcharge and maintain their longevity.
+
+2. The controller's internal SoC is heavily clustered in the 80-89% range, while the custom SoC is more distributed. This suggests that the controller's internal SoC algorithm may not be accurately reflecting the true state of charge based on the battery voltage. LiFePO4 batteries have a relatively flat voltage curve, which can make it challenging for the controller to accurately determine the SoC. This flat voltage curve can lead to the SoC being overestimated or underestimated. The conservative nature of the internal SoC algorithm is likely an attempt to avoid overcharging or undercharging the battery, which can be beneficial for battery longevity but may not provide accurate SoC readings.
+
+3. Over the 4.5 days, the battery bank appears to have been charged and discharged multiple times. The internal SoC is heavily clustered in the 80-89% range, indicating that the battery bank was not fully charged to 100%. However, the bank did not discharge deeply, as the minimum internal SoC was 20%. This suggests that the battery bank was used for daily operations but was not fully depleted.
+
+4. For calibrating the SoC in Home Assistant, a hybrid approach is recommended. This approach would combine the controller's internal SoC with the custom voltage-based SoC. The internal SoC can provide a conservative estimate of the SoC, while the custom voltage curve can offer a more accurate representation of the battery's state. This hybrid approach would help ensure that the battery is not overcharged or undercharged while providing a more accurate SoC reading for monitoring purposes.
+```

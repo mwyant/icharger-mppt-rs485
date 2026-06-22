@@ -90,3 +90,22 @@ All critical energy and power sensors have been configured with the necessary me
 | `iCharger Battery SoC` | `battery` | `measurement` | Hourly Min/Max/Avg |
 
 This ensures that even after the 10-day detailed history is purged, you can still view hourly energy usage and savings data for years.
+
+## 8. Key Engineering Discoveries & Calibration (June 2026)
+
+### 8.1. Register 0x0101: Hardware State of Charge (SoC)
+Through a high-resolution correlation analysis of 76,000+ records, we discovered that register `0x0101` (previously labeled as "Status Code" in community register maps) actually outputs the **iCharger's internal calculated Battery State of Charge (SoC) percentage** (ranging from 20 to 100).
+* **Behavior:** The hardware SoC is highly conservative and tends to cluster in the 80–89% range for a 16S LiFePO4 battery under normal cycling.
+* **Comparison:** Our custom voltage-based SoC calculation (`sensor.icharger_battery_soc`) is much more dynamic and responsive to cell voltage, but is susceptible to load-induced voltage sags.
+* **Recommendation:** Use a hybrid approach in Home Assistant. Display the custom voltage-based SoC (smoothed with a rolling average filter) for real-time dashboard responsiveness, and log the hardware SoC (`status_code`) as a conservative baseline.
+
+### 8.2. Controller Temperature Physics
+The temperature sensor (`sensor.icharger_controller_temperature`) measures the **internal heatsink/power stage temperature** of the MPPT controller, not the ambient outdoor temperature.
+* **Thermal Performance:** Under a peak load of ~3,000W (58.38A at 53V), the internal heatsink temperature stabilizes between **95°F and 99°F (35°C and 37°C)**. This is extremely cool and indicates highly efficient power conversion and excellent thermal design.
+
+### 8.3. Polling Hardening & Glitch Filtering
+During high-resolution analysis, we observed occasional communication glitches where the battery voltage momentarily read as `1.6V`, `1.9V`, or `2.9V` before instantly recovering to `53V+`. These are serial noise/Modbus polling offset artifacts.
+* **Recommended Poller Hardening:**
+  1. **Strict Packet Length Validation:** Ensure the serial response contains exactly the expected number of bytes (37 bytes for 16 registers) before parsing.
+  2. **Sanity Bounds Check:** Discard and retry any battery voltage readings below `40.0V` or above `60.0V` for a 48V nominal system.
+  3. **Retry Logic:** Implement a 3-attempt retry loop with a 100ms delay on failed or corrupted Modbus reads.

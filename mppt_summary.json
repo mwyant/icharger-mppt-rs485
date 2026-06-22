@@ -1,0 +1,572 @@
+{
+  "metadata": {
+    "total_records": 76220,
+    "start_time": "2026-06-18T00:57:04.523043",
+    "end_time": "2026-06-22T15:55:48.007881",
+    "battery_capacity_ah": 300,
+    "battery_capacity_kwh": 15.36,
+    "battery_chemistry": "16S LiFePO4"
+  },
+  "daily_summaries": [
+    {
+      "day": "2026-06-18",
+      "battery_voltage": {
+        "min": 1.9000000000000001,
+        "max": 57.1,
+        "avg": 53.21
+      },
+      "charging_power": {
+        "max": 2703.0,
+        "avg": 262.89,
+        "peak_time": "2026-06-18T18:03:39.191270"
+      },
+      "max_charging_current_a": 49.63,
+      "temperature_f": {
+        "min": 91,
+        "max": 95,
+        "avg": 94.99
+      },
+      "internal_soc_percent": {
+        "min": 74,
+        "max": 100,
+        "avg": 87.5
+      },
+      "energy_generated_wh": 2823,
+      "energy_generated_kwh": 2.82
+    },
+    {
+      "day": "2026-06-19",
+      "battery_voltage": {
+        "min": 51.6,
+        "max": 54.1,
+        "avg": 52.89
+      },
+      "charging_power": {
+        "max": 2797.0,
+        "avg": 491.03,
+        "peak_time": "2026-06-19T16:35:19.211316"
+      },
+      "max_charging_current_a": 52.52,
+      "temperature_f": {
+        "min": 64,
+        "max": 96,
+        "avg": 95.95
+      },
+      "internal_soc_percent": {
+        "min": 20,
+        "max": 97,
+        "avg": 84.5
+      },
+      "energy_generated_wh": 3590,
+      "energy_generated_kwh": 3.59
+    },
+    {
+      "day": "2026-06-20",
+      "battery_voltage": {
+        "min": 51.300000000000004,
+        "max": 54.2,
+        "avg": 52.74
+      },
+      "charging_power": {
+        "max": 3097.0,
+        "avg": 485.25,
+        "peak_time": "2026-06-20T17:44:29.558547"
+      },
+      "max_charging_current_a": 58.38,
+      "temperature_f": {
+        "min": 65,
+        "max": 97,
+        "avg": 96.95
+      },
+      "internal_soc_percent": {
+        "min": 69,
+        "max": 98,
+        "avg": 82.9
+      },
+      "energy_generated_wh": 4863,
+      "energy_generated_kwh": 4.86
+    },
+    {
+      "day": "2026-06-21",
+      "battery_voltage": {
+        "min": 51.5,
+        "max": 54.5,
+        "avg": 52.85
+      },
+      "charging_power": {
+        "max": 2634.0,
+        "avg": 648.69,
+        "peak_time": "2026-06-21T16:38:07.880830"
+      },
+      "max_charging_current_a": 49.46,
+      "temperature_f": {
+        "min": 66,
+        "max": 98,
+        "avg": 97.95
+      },
+      "internal_soc_percent": {
+        "min": 29,
+        "max": 100,
+        "avg": 84.1
+      },
+      "energy_generated_wh": 7428,
+      "energy_generated_kwh": 7.43
+    },
+    {
+      "day": "2026-06-22",
+      "battery_voltage": {
+        "min": 1.6,
+        "max": 53.2,
+        "avg": 52.79
+      },
+      "charging_power": {
+        "max": 375.0,
+        "avg": 74.41,
+        "peak_time": "2026-06-22T12:10:44.603132"
+      },
+      "max_charging_current_a": 7.09,
+      "temperature_f": {
+        "min": 66,
+        "max": 99,
+        "avg": 98.92
+      },
+      "internal_soc_percent": {
+        "min": 71,
+        "max": 87,
+        "avg": 83.5
+      },
+      "energy_generated_wh": 6410,
+      "energy_generated_kwh": 6.41
+    }
+  ],
+  "soc_audit": {
+    "avg_difference_percent": 15.65,
+    "max_difference_percent": 100.0,
+    "internal_soc_distribution": {
+      "20-29%": 2,
+      "60-69%": 4,
+      "70-79%": 10859,
+      "80-89%": 52817,
+      "90-99%": 11847,
+      "100-109%": 691
+    },
+    "custom_soc_distribution": {
+      "0-9%": 3,
+      "10-19%": 1043,
+      "20-29%": 2387,
+      "30-39%": 6893,
+      "40-49%": 3709,
+      "50-59%": 4473,
+      "60-69%": 10809,
+      "70-79%": 21634,
+      "80-89%": 6975,
+      "90-99%": 14597,
+      "100-109%": 3697
+    }
+  },
+  "anomalies": {
+    "failed_polls_gaps": [
+      {
+        "start": "2026-06-21T03:29:17.928112",
+        "end": "2026-06-21T03:29:33.534495",
+        "duration_seconds": 15.6
+      },
+      {
+        "start": "2026-06-21T23:03:33.827227",
+        "end": "2026-06-21T23:03:49.433142",
+        "duration_seconds": 15.6
+      }
+    ],
+    "low_voltage_events": [
+      {
+        "timestamp": "2026-06-18T13:22:09.131474",
+        "voltage": 1.9000000000000001
+      },
+      {
+        "timestamp": "2026-06-18T20:33:31.150852",
+        "voltage": 2.9000000000000004
+      },
+      {
+        "timestamp": "2026-06-22T05:13:42.788625",
+        "voltage": 1.6
+      }
+    ],
+    "high_temp_events": [],
+    "sudden_voltage_drops": [
+      {
+        "timestamp": "2026-06-18T13:22:09.131474",
+        "voltage_before": 53.1,
+        "voltage_after": 1.9000000000000001,
+        "drop": 51.2
+      },
+      {
+        "timestamp": "2026-06-18T13:53:45.445800",
+        "voltage_before": 53.1,
+        "voltage_after": 51.5,
+        "drop": 1.6
+      },
+      {
+        "timestamp": "2026-06-18T19:08:04.766925",
+        "voltage_before": 55.0,
+        "voltage_after": 53.7,
+        "drop": 1.3
+      },
+      {
+        "timestamp": "2026-06-18T19:33:05.207738",
+        "voltage_before": 55.1,
+        "voltage_after": 54.0,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-18T20:33:31.150852",
+        "voltage_before": 54.6,
+        "voltage_after": 2.9000000000000004,
+        "drop": 51.7
+      },
+      {
+        "timestamp": "2026-06-18T20:38:22.877639",
+        "voltage_before": 54.7,
+        "voltage_after": 53.5,
+        "drop": 1.2
+      },
+      {
+        "timestamp": "2026-06-18T21:23:05.903507",
+        "voltage_before": 54.800000000000004,
+        "voltage_after": 53.7,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-18T21:26:23.876201",
+        "voltage_before": 54.800000000000004,
+        "voltage_after": 53.7,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-18T21:26:39.503568",
+        "voltage_before": 57.1,
+        "voltage_after": 53.800000000000004,
+        "drop": 3.3
+      },
+      {
+        "timestamp": "2026-06-18T21:37:46.345371",
+        "voltage_before": 55.0,
+        "voltage_after": 53.900000000000006,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-18T21:44:48.315201",
+        "voltage_before": 54.800000000000004,
+        "voltage_after": 53.6,
+        "drop": 1.2
+      },
+      {
+        "timestamp": "2026-06-18T21:54:10.990301",
+        "voltage_before": 54.6,
+        "voltage_after": 53.5,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-19T14:40:57.978247",
+        "voltage_before": 53.1,
+        "voltage_after": 52.0,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-19T15:10:03.222268",
+        "voltage_before": 53.1,
+        "voltage_after": 52.0,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-19T16:35:29.627262",
+        "voltage_before": 53.300000000000004,
+        "voltage_after": 52.2,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-19T17:37:29.363637",
+        "voltage_before": 53.5,
+        "voltage_after": 52.400000000000006,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-20T15:31:17.713175",
+        "voltage_before": 53.800000000000004,
+        "voltage_after": 52.5,
+        "drop": 1.3
+      },
+      {
+        "timestamp": "2026-06-20T15:47:26.734249",
+        "voltage_before": 53.2,
+        "voltage_after": 52.1,
+        "drop": 1.1
+      },
+      {
+        "timestamp": "2026-06-20T15:58:33.606345",
+        "voltage_before": 53.400000000000006,
+        "voltage_after": 52.2,
+        "drop": 1.2
+      },
+      {
+        "timestamp": "2026-06-20T16:10:58.579497",
+        "voltage_before": 53.0,
+        "voltage_after": 51.800000000000004,
+        "drop": 1.2
+      }
+    ]
+  },
+  "hourly_trends_sample": [
+    {
+      "hour": "2026-06-18 00:00:00",
+      "avg_batt_v": 53.5,
+      "avg_charge_w": 0,
+      "avg_pv_v": 33.35,
+      "avg_temp_f": 94.0,
+      "avg_internal_soc": 90.7,
+      "energy_gen_wh": 0
+    },
+    {
+      "hour": "2026-06-18 04:00:00",
+      "avg_batt_v": 52.81,
+      "avg_charge_w": 0,
+      "avg_pv_v": 0,
+      "avg_temp_f": 95.0,
+      "avg_internal_soc": 83.6,
+      "energy_gen_wh": 256
+    },
+    {
+      "hour": "2026-06-18 08:00:00",
+      "avg_batt_v": 52.78,
+      "avg_charge_w": 0,
+      "avg_pv_v": 1.48,
+      "avg_temp_f": 95.0,
+      "avg_internal_soc": 83.7,
+      "energy_gen_wh": 0
+    },
+    {
+      "hour": "2026-06-18 12:00:00",
+      "avg_batt_v": 53.18,
+      "avg_charge_w": 296.07,
+      "avg_pv_v": 77.34,
+      "avg_temp_f": 95.0,
+      "avg_internal_soc": 87.3,
+      "energy_gen_wh": 256
+    },
+    {
+      "hour": "2026-06-18 16:00:00",
+      "avg_batt_v": 53.41,
+      "avg_charge_w": 539.82,
+      "avg_pv_v": 77.53,
+      "avg_temp_f": 95.0,
+      "avg_internal_soc": 89.7,
+      "energy_gen_wh": 768
+    },
+    {
+      "hour": "2026-06-18 20:00:00",
+      "avg_batt_v": 53.97,
+      "avg_charge_w": 151.59,
+      "avg_pv_v": 100.21,
+      "avg_temp_f": 95.0,
+      "avg_internal_soc": 95.1,
+      "energy_gen_wh": 256
+    },
+    {
+      "hour": "2026-06-19 00:00:00",
+      "avg_batt_v": 52.77,
+      "avg_charge_w": 32.83,
+      "avg_pv_v": 61.92,
+      "avg_temp_f": 95.0,
+      "avg_internal_soc": 83.5,
+      "energy_gen_wh": 514
+    },
+    {
+      "hour": "2026-06-19 04:00:00",
+      "avg_batt_v": 52.9,
+      "avg_charge_w": 0,
+      "avg_pv_v": 0,
+      "avg_temp_f": 96.0,
+      "avg_internal_soc": 84.6,
+      "energy_gen_wh": 1
+    },
+    {
+      "hour": "2026-06-19 08:00:00",
+      "avg_batt_v": 52.87,
+      "avg_charge_w": 0,
+      "avg_pv_v": 5.01,
+      "avg_temp_f": 95.95,
+      "avg_internal_soc": 84.0,
+      "energy_gen_wh": 0
+    },
+    {
+      "hour": "2026-06-19 12:00:00",
+      "avg_batt_v": 53.43,
+      "avg_charge_w": 477.34,
+      "avg_pv_v": 82.36,
+      "avg_temp_f": 96.0,
+      "avg_internal_soc": 89.8,
+      "energy_gen_wh": 257
+    },
+    {
+      "hour": "2026-06-19 16:00:00",
+      "avg_batt_v": 52.62,
+      "avg_charge_w": 1297.63,
+      "avg_pv_v": 78.53,
+      "avg_temp_f": 96.0,
+      "avg_internal_soc": 81.9,
+      "energy_gen_wh": 770
+    },
+    {
+      "hour": "2026-06-19 20:00:00",
+      "avg_batt_v": 52.74,
+      "avg_charge_w": 609.56,
+      "avg_pv_v": 78.53,
+      "avg_temp_f": 96.0,
+      "avg_internal_soc": 82.9,
+      "energy_gen_wh": 518
+    },
+    {
+      "hour": "2026-06-20 00:00:00",
+      "avg_batt_v": 52.68,
+      "avg_charge_w": 35.89,
+      "avg_pv_v": 63.65,
+      "avg_temp_f": 96.0,
+      "avg_internal_soc": 82.4,
+      "energy_gen_wh": 770
+    },
+    {
+      "hour": "2026-06-20 04:00:00",
+      "avg_batt_v": 52.62,
+      "avg_charge_w": 0,
+      "avg_pv_v": 0,
+      "avg_temp_f": 97.0,
+      "avg_internal_soc": 81.5,
+      "energy_gen_wh": 0
+    },
+    {
+      "hour": "2026-06-20 08:00:00",
+      "avg_batt_v": 52.68,
+      "avg_charge_w": 0,
+      "avg_pv_v": 3.59,
+      "avg_temp_f": 97.0,
+      "avg_internal_soc": 82.0,
+      "energy_gen_wh": 1
+    },
+    {
+      "hour": "2026-06-20 12:00:00",
+      "avg_batt_v": 52.79,
+      "avg_charge_w": 153.84,
+      "avg_pv_v": 78.92,
+      "avg_temp_f": 97.0,
+      "avg_internal_soc": 83.5,
+      "energy_gen_wh": 257
+    },
+    {
+      "hour": "2026-06-20 16:00:00",
+      "avg_batt_v": 52.35,
+      "avg_charge_w": 1479.75,
+      "avg_pv_v": 78.93,
+      "avg_temp_f": 97.0,
+      "avg_internal_soc": 79.2,
+      "energy_gen_wh": 1025
+    },
+    {
+      "hour": "2026-06-20 20:00:00",
+      "avg_batt_v": 53.39,
+      "avg_charge_w": 1239.11,
+      "avg_pv_v": 84.28,
+      "avg_temp_f": 97.0,
+      "avg_internal_soc": 89.7,
+      "energy_gen_wh": 2304
+    },
+    {
+      "hour": "2026-06-21 00:00:00",
+      "avg_batt_v": 52.22,
+      "avg_charge_w": 40.09,
+      "avg_pv_v": 61.36,
+      "avg_temp_f": 97.0,
+      "avg_internal_soc": 78.0,
+      "energy_gen_wh": 518
+    },
+    {
+      "hour": "2026-06-21 04:00:00",
+      "avg_batt_v": 52.04,
+      "avg_charge_w": 0,
+      "avg_pv_v": 0,
+      "avg_temp_f": 98.0,
+      "avg_internal_soc": 75.8,
+      "energy_gen_wh": 256
+    },
+    {
+      "hour": "2026-06-21 08:00:00",
+      "avg_batt_v": 52.2,
+      "avg_charge_w": 0,
+      "avg_pv_v": 7.04,
+      "avg_temp_f": 98.0,
+      "avg_internal_soc": 77.8,
+      "energy_gen_wh": 0
+    },
+    {
+      "hour": "2026-06-21 12:00:00",
+      "avg_batt_v": 53.27,
+      "avg_charge_w": 961.54,
+      "avg_pv_v": 82.97,
+      "avg_temp_f": 98.0,
+      "avg_internal_soc": 88.2,
+      "energy_gen_wh": 1024
+    },
+    {
+      "hour": "2026-06-21 16:00:00",
+      "avg_batt_v": 53.64,
+      "avg_charge_w": 1668.71,
+      "avg_pv_v": 78.46,
+      "avg_temp_f": 98.0,
+      "avg_internal_soc": 92.1,
+      "energy_gen_wh": 770
+    },
+    {
+      "hour": "2026-06-21 20:00:00",
+      "avg_batt_v": 53.11,
+      "avg_charge_w": 1396.22,
+      "avg_pv_v": 82.32,
+      "avg_temp_f": 98.0,
+      "avg_internal_soc": 86.8,
+      "energy_gen_wh": 769
+    },
+    {
+      "hour": "2026-06-22 00:00:00",
+      "avg_batt_v": 52.76,
+      "avg_charge_w": 38.19,
+      "avg_pv_v": 63.6,
+      "avg_temp_f": 97.95,
+      "avg_internal_soc": 83.3,
+      "energy_gen_wh": 1284
+    },
+    {
+      "hour": "2026-06-22 04:00:00",
+      "avg_batt_v": 52.79,
+      "avg_charge_w": 0,
+      "avg_pv_v": 0,
+      "avg_temp_f": 99.0,
+      "avg_internal_soc": 83.2,
+      "energy_gen_wh": 256
+    },
+    {
+      "hour": "2026-06-22 08:00:00",
+      "avg_batt_v": 52.78,
+      "avg_charge_w": 0,
+      "avg_pv_v": 6.82,
+      "avg_temp_f": 99.0,
+      "avg_internal_soc": 83.5,
+      "energy_gen_wh": 0
+    },
+    {
+      "hour": "2026-06-22 12:00:00",
+      "avg_batt_v": 53.07,
+      "avg_charge_w": 272.62,
+      "avg_pv_v": 82.41,
+      "avg_temp_f": 99.0,
+      "avg_internal_soc": 86.2,
+      "energy_gen_wh": 1
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+```plaintext
+The controller's internal temperature is remarkably stable and cool, even under high charging power, due to the efficient heat dissipation design of the iCharger MPPT 48100. The heatsink is designed to handle high power conversion with minimal temperature rise, ensuring that the controller operates within safe limits. The internal temperature of 95-99°F (35-37°C) under a 3kW load is indeed extremely cool and indicates high efficiency. This is because the controller is designed to manage heat effectively, likely through a combination of advanced thermal management techniques and high-quality components.
+
+The "iCharger Excess Solar Load Trigger" automation is designed to manage the load during periods of high solar generation. Based on the hourly trends, the trigger would be activated during the following hours:
+
+- 16:00-20:00 on June 19, 20:00-00:00 on June 20, 16:00-20:00 on June 21, and 12:00-16:00 on June 22.
+
+The 2200W trigger point is reasonable given the daily peak powers. However, it might be too aggressive, as it could lead to frequent load shedding during periods of high solar generation. A more balanced approach could be to increase the trigger threshold to 2500W or higher, which would reduce the frequency of load shedding and maximize self-consumption.
+
+Recommendations for optimizing the load-shedding automation:
+
+1. Increase the trigger threshold to 2500W or higher to reduce the frequency of load shedding.
+2. Implement a delay in the trigger activation to ensure that the system has enough time to absorb the excess solar energy.
+3. Use a more sophisticated algorithm to predict and manage the load based on historical data and real-time conditions.
+4. Consider implementing a priority-based load shedding system, where critical loads are prioritized over non-critical loads.
+```
